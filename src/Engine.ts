@@ -149,15 +149,27 @@ export class Engine {
 	}
 
 	async sendMessageToTab<T extends HookInput>(tabId: number, hookInput: T) {
-		return browser.tabs.sendMessage(tabId, hookInput) as Promise<
-		GetHookOutput<typeof hookInput>
-		>;
+		try {
+			const result = await browser.tabs.sendMessage(tabId, hookInput) as Promise<
+				GetHookOutput<typeof hookInput>
+			>;
+			return result;
+		}
+		catch (error) {
+			throw new Error(`Hook error: ${(error as Error).message}. Does content script registered this node?`);
+		}
 	}
 
 	async sendMessageToBackground<T extends HookInput>(hookInput: T) {
-		return browser.runtime.sendMessage(hookInput) as Promise<
-		GetHookOutput<typeof hookInput>
-		>;
+		try {
+			const result = await browser.runtime.sendMessage(hookInput) as Promise<
+				GetHookOutput<typeof hookInput>
+			>;
+			return result;
+		}
+		catch (error) {
+			throw new Error(`Hook error: ${(error as Error).message}. Does background script registered this node?`);
+		}
 	}
 
 	/**
