@@ -88,16 +88,16 @@ export class Engine {
 		| 'web' = Engine.detectEnvironment(),
 	) {
 		Object.values(NodeClassifiers).forEach(NodeClassifier => {
-			this.NodeClassifiers.set(NodeClassifier.metadata.name, NodeClassifier);
+			this.NodeClassifiers.set(NodeClassifier.name, NodeClassifier);
 		});
 	}
 
 	registerNode(NodeClass: typeof Node) {
-		if (this.NodeClassifiers.has(NodeClass.metadata.name)) {
-			throw new Error(`Node "${NodeClass.metadata.name}" already registered`);
+		if (this.NodeClassifiers.has(NodeClass.name)) {
+			throw new Error(`Node "${NodeClass.name}" already registered`);
 		}
 
-		this.NodeClassifiers.set(NodeClass.metadata.name, NodeClass);
+		this.NodeClassifiers.set(NodeClass.name, NodeClass);
 	}
 
 	/**
