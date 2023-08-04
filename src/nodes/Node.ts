@@ -2,7 +2,6 @@
 import {type LogData} from '../utils/logger';
 import {type NodeRaw, type Context, type Engine} from '../Engine';
 import {type Logger} from '../Logger';
-import type {NodeNameUnion} from './index';
 import {sleep} from '../utils';
 
 export abstract class Node {
@@ -34,16 +33,16 @@ export abstract class Node {
 
 	async executeConcurrentNodes<T extends typeof Node>(
 		nodes: Array<{
-			NodeClass: T;
+			Node: T;
 			input: Parameters<InstanceType<T>['execute']>[0];
 		}>,
 	) {
-		return Promise.all(nodes.map(async node => this.executeNode(node.NodeClass, node.input)));
+		return Promise.all(nodes.map(async node => this.executeNode(node.Node, node.input)));
 	}
 
 	async executeNodes<T extends typeof Node>(
 		nodes: Array<{
-			NodeClass: T;
+			Node: T;
 			input: Parameters<InstanceType<T>['execute']>[0];
 		}>,
 		delay = 0,
@@ -51,7 +50,7 @@ export abstract class Node {
 		const results = [];
 		for (const node of nodes) {
 			await sleep(delay);
-			const result = await this.executeNode(node.NodeClass, node.input);
+			const result = await this.executeNode(node.Node, node.input);
 			results.push(result);
 		}
 
