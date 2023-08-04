@@ -1,0 +1,1 @@
+{"version":3,"file":"CloseTab.d.ts","sourceRoot":"","sources":["../../../src/nodes/blocks/CloseTab.ts"],"names":[],"mappings":"AAEA,OAAO,EAAC,KAAK,EAAE,KAAK,UAAU,EAAC,MAAM,UAAU,CAAC;AAGhD,qBAAa,QAAS,SAAQ,KAAK;IAClC,IAAI,eAAyB;IAEvB,OAAO,CAAC,KAAK,EAAE,aAAa;CAIlC;AAED,MAAM,MAAM,aAAa,GAAG,UAAU,GAAG;IACxC,MAAM,EAAE,MAAM,EAAE,CAAC;CACjB,CAAC"}

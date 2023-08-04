@@ -1,0 +1,1 @@
+{"version":3,"file":"waitTabLoaded.d.ts","sourceRoot":"","sources":["../../src/utils/waitTabLoaded.ts"],"names":[],"mappings":"AAEA,wBAAsB,aAAa,CAAC,EACnC,KAAK,EACL,WAAmB,EACnB,EAAU,GACV,EAAE;IACF,KAAK,EAAE,MAAM,CAAC;IACd,WAAW,CAAC,EAAE,OAAO,CAAC;IACtB,EAAE,CAAC,EAAE,MAAM,CAAC;CACZ,GAAG,OAAO,CAAC,IAAI,CAAC,CA8DhB"}

@@ -1,0 +1,2 @@
+export declare function retryWithTimeout<T extends (...args: any[]) => Promise<V>, V = Awaited<ReturnType<T>>>(fn: T, args: Parameters<T>, timeout: number, retryInterval?: number): Promise<V>;
+//# sourceMappingURL=retryWithTimeout.d.ts.map
