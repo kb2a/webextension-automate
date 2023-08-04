@@ -92,12 +92,14 @@ export class Engine {
 		});
 	}
 
-	registerNode(NodeClass: typeof Node) {
-		if (this.NodeClassifiers.has(NodeClass.name)) {
-			throw new Error(`Node "${NodeClass.name}" already registered`);
-		}
+	registerNodes(Nodes: Record<string, typeof Node>) {
+		Object.keys(Nodes).forEach(key => {
+			if (this.NodeClassifiers.has(key)) {
+				throw new Error(`Node "${key}" already registered`);
+			}
 
-		this.NodeClassifiers.set(NodeClass.name, NodeClass);
+			this.NodeClassifiers.set(key, Nodes[key]);
+		});
 	}
 
 	/**
@@ -336,7 +338,6 @@ export class Engine {
 		context: Context,
 	): Promise<GetNodeOutput<NodeName>> {
 		const NodeClassifier = this.NodeClassifiers.get(nodeRaw.name);
-
 		if (!NodeClassifier) {
 			throw new Error(`Node "${nodeRaw.name}" not found`);
 		}
