@@ -1,0 +1,1 @@
+{"version":3,"file":"ReloadTab.d.ts","sourceRoot":"","sources":["../../../src/nodes/blocks/ReloadTab.ts"],"names":[],"mappings":"AACA,OAAO,EAAC,KAAK,EAAE,KAAK,UAAU,EAAC,MAAM,UAAU,CAAC;AAEhD,qBAAa,SAAU,SAAQ,KAAK;IACnC,IAAI,eAAyB;IAEvB,OAAO,CAAC,KAAK,EAAE,cAAc;CAKnC;AAED,MAAM,MAAM,cAAc,GAAG,UAAU,GAAG;IACzC,KAAK,EAAE,MAAM,CAAC;CACd,CAAC"}

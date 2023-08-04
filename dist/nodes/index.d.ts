@@ -7,6 +7,7 @@ export declare const NodeClassifiers: {
     ClickElement: typeof BlockClassifiers.ClickElement;
     CloseTab: typeof BlockClassifiers.CloseTab;
     NewTab: typeof BlockClassifiers.NewTab;
+    ReloadTab: typeof BlockClassifiers.ReloadTab;
     WaitElement: typeof BlockClassifiers.WaitElement;
 };
 export type NodeNameUnion = keyof typeof NodeClassifiers;

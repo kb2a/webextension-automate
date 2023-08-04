@@ -1,4 +1,4 @@
-import assert from 'assert';
+import { assert } from '../../utils/assert';
 import { Block } from '../Block';
 import { WaitElement } from './WaitElement';
 export class ClickElement extends Block {
@@ -14,7 +14,7 @@ export class ClickElement extends Block {
     type = 'content';
     async execute(input) {
         const elements = await this.executeNode(WaitElement, input);
-        if (elements?.[0]) {
+        if (elements[0]) {
             assert(elements[0] instanceof HTMLElement);
             elements[0].click();
         }

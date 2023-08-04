@@ -20,13 +20,13 @@ export class Node {
         this.context = context;
     }
     async executeConcurrentNodes(nodes) {
-        return Promise.all(nodes.map(async (node) => this.executeNode(node.NodeClass, node.input)));
+        return Promise.all(nodes.map(async (node) => this.executeNode(node.Node, node.input)));
     }
     async executeNodes(nodes, delay = 0) {
         const results = [];
         for (const node of nodes) {
             await sleep(delay);
-            const result = await this.executeNode(node.NodeClass, node.input);
+            const result = await this.executeNode(node.Node, node.input);
             results.push(result);
         }
         return results;
