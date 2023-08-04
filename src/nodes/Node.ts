@@ -18,11 +18,11 @@ export abstract class Node {
 	}
 
 	/**
-   * Environment that the node will execute in.
-   * Type 'content': execute in content pages, can use dom variable like: HTMLElement, HTMLElementInput, ...
-   * Type 'background': execute in background or popup, can use functions from: browser.tabs, browser.runtime, ...
-   * @description Environment that the node will execute in
-   */
+	 * Environment that the node will execute in.
+	 * Type 'content': execute in content pages, can use dom variable like: HTMLElement, HTMLElementInput, ...
+	 * Type 'background': execute in background or popup, can use functions from: browser.tabs, browser.runtime, ...
+	 * @description Environment that the node will execute in
+	 */
 	abstract type: 'background' | 'content' | 'universal';
 
 	constructor(
@@ -37,7 +37,9 @@ export abstract class Node {
 			input: Parameters<InstanceType<T>['execute']>[0];
 		}>,
 	) {
-		return Promise.all(nodes.map(async node => this.executeNode(node.Node, node.input)));
+		return Promise.all(
+			nodes.map(async node => this.executeNode(node.Node, node.input)),
+		);
 	}
 
 	async executeNodes<T extends typeof Node>(
@@ -62,10 +64,14 @@ export abstract class Node {
 		input: Parameters<InstanceType<T>['execute']>[0],
 	) {
 		// Pass NodeClass instead of NodeClass.name to support outside module import Node blocks
-		return this.engine.executeNode({
-			name: NodeClass.name,
-			data: input,
-		} as NodeRaw, this.logger, this.context) as Promise<ReturnType<InstanceType<T>['execute']>>;
+		return this.engine.executeNode(
+			{
+				name: NodeClass.name,
+				data: input,
+			} as NodeRaw,
+			this.logger,
+			this.context,
+		) as Promise<ReturnType<InstanceType<T>['execute']>>;
 	}
 
 	abstract execute(input: NodeInput): Promise<any>;

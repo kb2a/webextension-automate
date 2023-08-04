@@ -21,9 +21,9 @@ const TAB_ID_NONE = -1;
  */
 export class Engine {
 	/**
-   * @description Create context for executing Nodes
-   * @param additionalContext Additional context for executing Nodes
-   */
+	 * @description Create context for executing Nodes
+	 * @param additionalContext Additional context for executing Nodes
+	 */
 	static createContext(additionalContext: Record<string, unknown> = {}) {
 		return {
 			rootLogId: 0,
@@ -37,24 +37,24 @@ export class Engine {
 	}
 
 	/**
-   * @description Detect environment of Engine
-   * @example
-   * // In background script
-   * Engine.detectEnvironment(); // 'background'
-   * // In content script
-   * Engine.detectEnvironment(); // 'content'
-   */
+	 * @description Detect environment of Engine
+	 * @example
+	 * // In background script
+	 * Engine.detectEnvironment(); // 'background'
+	 * // In content script
+	 * Engine.detectEnvironment(); // 'content'
+	 */
 	static detectEnvironment() {
 		if (
 			chrome?.extension?.getBackgroundPage
-      && chrome.extension.getBackgroundPage() === window
+			&& chrome.extension.getBackgroundPage() === window
 		) {
 			return 'background';
 		}
 
 		if (
 			chrome?.extension?.getBackgroundPage
-      && chrome.extension.getBackgroundPage() !== window
+			&& chrome.extension.getBackgroundPage() !== window
 		) {
 			return 'popup';
 		}
@@ -69,17 +69,17 @@ export class Engine {
 	NodeClassifiers = new Map<string, typeof Node>();
 
 	/**
-   * @description Create new instance of Engine
-   * @param environment Specify environment of Engine, 'background' or 'content'
-   * @example
-   * // In background script
-   * const engine = new Engine('background');
-   * engine.executeTask(taskRaw);
-   * @example
-   * // In content script
-   * const engine = new Engine('content');
-   * engine.executeTask(taskRaw);
-   */
+	 * @description Create new instance of Engine
+	 * @param environment Specify environment of Engine, 'background' or 'content'
+	 * @example
+	 * // In background script
+	 * const engine = new Engine('background');
+	 * engine.executeTask(taskRaw);
+	 * @example
+	 * // In content script
+	 * const engine = new Engine('content');
+	 * engine.executeTask(taskRaw);
+	 */
 	constructor(
 		public environment:
 		| 'background'
@@ -101,12 +101,12 @@ export class Engine {
 	}
 
 	/**
-   * @description Create hook for listening others job message from any environments
-   * @example
-   * // In background script
-   * const engine = new Engine('background');
-   * browser.runtime.onMessage.addListener(engine.createHook());
-   */
+	 * @description Create hook for listening others job message from any environments
+	 * @example
+	 * // In background script
+	 * const engine = new Engine('background');
+	 * browser.runtime.onMessage.addListener(engine.createHook());
+	 */
 	createHook() {
 		return async (hookInput: HookInput, sender: Runtime.MessageSender) =>
 			new Promise<HookOutput>((resolve, reject) => {
@@ -161,11 +161,11 @@ export class Engine {
 	}
 
 	/**
-   * @description Execute task from raw data, all nodes will be executed in order and use the same context
-   * @param taskRaw Task raw data
-   * @param logger Logger for logging task
-   * @param context Context for executing Nodes
-   */
+	 * @description Execute task from raw data, all nodes will be executed in order and use the same context
+	 * @param taskRaw Task raw data
+	 * @param logger Logger for logging task
+	 * @param context Context for executing Nodes
+	 */
 	async executeTaskRaw<NodeName extends NodeNameUnion>(
 		taskRaw: NodeMetadata & {
 			data: {
@@ -190,11 +190,11 @@ export class Engine {
 	}
 
 	/**
-   * @description Execute task from specified Node Class, all nodes will be executed in order and use the same context
-   * @param taskRaw Task data
-   * @param logger Logger for logging task
-   * @param context Context for executing Nodes
-   */
+	 * @description Execute task from specified Node Class, all nodes will be executed in order and use the same context
+	 * @param taskRaw Task data
+	 * @param logger Logger for logging task
+	 * @param context Context for executing Nodes
+	 */
 	async executeTask<T extends typeof Node>(
 		taskData: NodeMetadata & {
 			data: {
@@ -228,36 +228,36 @@ export class Engine {
 	}
 
 	/**
-   * @description Execute concurrent nodes, all nodes will be executed concurrently and use the same context
-   * @param nodeRaws Node raw data
-   * @param logger Logger for logging task
-   * @param context Context for executing Nodes
-   * @example
-   * // In background script
-   * const engine = new Engine('background');
-   * await engine.executeConcurrentNodes([
-   *  {
-   *    name: 'NewTab',
-   *    data: {
-   *      url: 'https://twitter.com/KB2A_vn',
-   *      active: true,
-   *      waitTabLoaded: true,
-   *      updatePrevTab: false,
-   *      tabLoadTimeout: 30000,
-   *    },
-   *  },
-   *  {
-   *    name: 'NewTab',
-   *    data: {
-   *      url: 'https://kb2a.vn/',
-   *      active: true,
-   *      waitTabLoaded: true,
-   *      updatePrevTab: false,
-   *      tabLoadTimeout: 30000,
-   *    },
-   *  },
-   * ]);
-   */
+	 * @description Execute concurrent nodes, all nodes will be executed concurrently and use the same context
+	 * @param nodeRaws Node raw data
+	 * @param logger Logger for logging task
+	 * @param context Context for executing Nodes
+	 * @example
+	 * // In background script
+	 * const engine = new Engine('background');
+	 * await engine.executeConcurrentNodes([
+	 *  {
+	 *    name: 'NewTab',
+	 *    data: {
+	 *      url: 'https://twitter.com/KB2A_vn',
+	 *      active: true,
+	 *      waitTabLoaded: true,
+	 *      updatePrevTab: false,
+	 *      tabLoadTimeout: 30000,
+	 *    },
+	 *  },
+	 *  {
+	 *    name: 'NewTab',
+	 *    data: {
+	 *      url: 'https://kb2a.vn/',
+	 *      active: true,
+	 *      waitTabLoaded: true,
+	 *      updatePrevTab: false,
+	 *      tabLoadTimeout: 30000,
+	 *    },
+	 *  },
+	 * ]);
+	 */
 	async executeConcurrentNodes<NodeName extends NodeNameUnion>(
 		nodeRaws: Array<NodeRaw<NodeName>>,
 		logger: Logger<LogData>,
@@ -271,37 +271,37 @@ export class Engine {
 	}
 
 	/**
-   * @description Execute nodes, all nodes will be executed in order and use the same context
-   * @param nodeRaws Node raw data
-   * @param logger Logger for logging task
-   * @param context Context for executing Nodes
-   * @param delay Delay between nodes
-   * @example
-   * // In background script
-   * const engine = new Engine('background');
-   * await engine.executeNodes([
-   *  {
-   *    name: 'NewTab',
-   *    data: {
-   *      url: 'https://twitter.com/KB2A_vn',
-   *      active: true,
-   *      waitTabLoaded: true,
-   *      updatePrevTab: false,
-   *      tabLoadTimeout: 30000,
-   *    },
-   *  },
-   *  {
-   *   name: 'NewTab',
-   *   data: {
-   *     url: 'https://kb2a.vn/',
-   *     active: true,
-   *     waitTabLoaded: true,
-   *     updatePrevTab: false,
-   *     tabLoadTimeout: 30000,
-   *   },
-   *  },
-   * ]);
-   */
+	 * @description Execute nodes, all nodes will be executed in order and use the same context
+	 * @param nodeRaws Node raw data
+	 * @param logger Logger for logging task
+	 * @param context Context for executing Nodes
+	 * @param delay Delay between nodes
+	 * @example
+	 * // In background script
+	 * const engine = new Engine('background');
+	 * await engine.executeNodes([
+	 *  {
+	 *    name: 'NewTab',
+	 *    data: {
+	 *      url: 'https://twitter.com/KB2A_vn',
+	 *      active: true,
+	 *      waitTabLoaded: true,
+	 *      updatePrevTab: false,
+	 *      tabLoadTimeout: 30000,
+	 *    },
+	 *  },
+	 *  {
+	 *   name: 'NewTab',
+	 *   data: {
+	 *     url: 'https://kb2a.vn/',
+	 *     active: true,
+	 *     waitTabLoaded: true,
+	 *     updatePrevTab: false,
+	 *     tabLoadTimeout: 30000,
+	 *   },
+	 *  },
+	 * ]);
+	 */
 	async executeNodes<NodeName extends NodeNameUnion>(
 		nodeRaws: Array<NodeRaw<NodeName>>,
 		logger: Logger<LogData>,
@@ -340,10 +340,10 @@ export class Engine {
 			// If node is Job and current active tab is none, create new tab
 			if (
 				node instanceof Job
-        && node.type === 'content' // Only create new tab in job typed content
-        && context.activeTab.id === TAB_ID_NONE
-        && !(node instanceof NodeClassifiers.NewTab) // Create init tab in a NewTab node? No!
-        && this.environment !== 'popup' // Popup process will not be killed (newtab kill popup) before sending hookInput to background
+				&& node.type === 'content' // Only create new tab in job typed content
+				&& context.activeTab.id === TAB_ID_NONE
+				&& !(node instanceof NodeClassifiers.NewTab) // Create init tab in a NewTab node? No!
+				&& this.environment !== 'popup' // Popup process will not be killed (newtab kill popup) before sending hookInput to background
 			) {
 				const {initUrl} = nodeRaw.data as JobInput;
 				if (!initUrl) {
@@ -384,8 +384,8 @@ export class Engine {
 
 				if (
 					(node.type === 'content'
-            && currentExecutingTabId !== context.activeTab.id)
-          || node.type === 'background'
+						&& currentExecutingTabId !== context.activeTab.id)
+					|| node.type === 'background'
 				) {
 					hookOutput = await this.sendMessageToBackground(hookInput); // Send to background and then background send to tab
 				}
@@ -498,6 +498,6 @@ export type GetHookOutput<HookInput> = HookInput extends {
 	? HookOutputNode<NodeName>
 	: HookInput extends {
 		type: 'number';
-	}
+	  }
 		? number
 		: never;

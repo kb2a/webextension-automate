@@ -2,7 +2,6 @@ export function getElementsByBody(body: string): Element[] {
 	return getElementsByXPath(`//*[contains(text(), "${body}")]`);
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export function getElementsByXPath(
 	xpath: string,
 	parent?: Document | Element,

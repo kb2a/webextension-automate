@@ -25,15 +25,15 @@ export class NewTab extends Block {
 		}
 
 		const tab: Tabs.Tab
-      = input.updatePrevTab && this.context.activeTab.id
-      	? await browser.tabs.update(this.context.activeTab.id, {
-      		url: input.url,
-      		active: input.active,
-      	})
-      	: await browser.tabs.create({
-      		url: input.url,
-      		active: input.active,
-      	});
+			= input.updatePrevTab && this.context.activeTab.id
+				? await browser.tabs.update(this.context.activeTab.id, {
+					url: input.url,
+					active: input.active,
+				  })
+				: await browser.tabs.create({
+					url: input.url,
+					active: input.active,
+				  });
 
 		this.context.activeTab.url = input.url;
 

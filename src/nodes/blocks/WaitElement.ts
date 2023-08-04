@@ -72,21 +72,21 @@ export type WaitElementInput = BlockInput &
 	| {
 		type: 'css-selector';
 		input: string;
-	}
+		  }
 	| {
 		type: 'xpath';
 		input: string;
-	}
+		  }
 	| {
 		type: 'search';
 		input: {
 			body: string;
 		};
-	}
+		  }
 	| {
 		type: 'function';
 		input: () => void | Promise<void>;
-	}
+		  }
 ) & {
 	timeout?: number;
 };

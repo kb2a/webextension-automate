@@ -15,17 +15,17 @@ export class Logger<DataType extends Record<string, Serializable>> {
 	}
 
 	/**
-   * @description Add new log to logger
-   * @param logData Data of log
-   * @param parentId Id of parent logger
-   * @returns New logger
-   * @example
-   * const logger = new Logger<{type: string, message: string}>(true);
-   * logger.add({
-   *  type: 'info',
-   *  message: 'Hello world',
-   * });
-   */
+	 * @description Add new log to logger
+	 * @param logData Data of log
+	 * @param parentId Id of parent logger
+	 * @returns New logger
+	 * @example
+	 * const logger = new Logger<{type: string, message: string}>(true);
+	 * logger.add({
+	 *  type: 'info',
+	 *  message: 'Hello world',
+	 * });
+	 */
 	add(logData: DataType, parentId?: string) {
 		const logger = new Logger<DataType>();
 		logger.data = logData;
@@ -47,17 +47,17 @@ export class Logger<DataType extends Record<string, Serializable>> {
 	}
 
 	/**
-   * @description Remove logger by id
-   * @param id Id of logger
-   * @example
-   * const logger = new Logger<{type: string, message: string}>(true);
-   * logger.add({
-   *  type: 'info',
-   *  message: 'Hello world',
-   * });
-   * logger.remove(logger.children[0]);
-   * logger.children[0].id; // undefined
-   */
+	 * @description Remove logger by id
+	 * @param id Id of logger
+	 * @example
+	 * const logger = new Logger<{type: string, message: string}>(true);
+	 * logger.add({
+	 *  type: 'info',
+	 *  message: 'Hello world',
+	 * });
+	 * logger.remove(logger.children[0]);
+	 * logger.children[0].id; // undefined
+	 */
 	remove(id: string) {
 		const index = this.children.findIndex(log => log.id === id);
 		if (index === -1) {
@@ -69,17 +69,17 @@ export class Logger<DataType extends Record<string, Serializable>> {
 	}
 
 	/**
-   * @description Find logger by id
-   * @param id Id of logger
-   * @example
-   * const logger = new Logger<{type: string, message: string}>(true);
-   * logger.add({
-   *  type: 'info',
-   *  message: 'Hello world',
-   * });
-   * logger.find(logger.children[0].id); // logger.children[0]
-   * logger.find('not-found'); // undefined
-   */
+	 * @description Find logger by id
+	 * @param id Id of logger
+	 * @example
+	 * const logger = new Logger<{type: string, message: string}>(true);
+	 * logger.add({
+	 *  type: 'info',
+	 *  message: 'Hello world',
+	 * });
+	 * logger.find(logger.children[0].id); // logger.children[0]
+	 * logger.find('not-found'); // undefined
+	 */
 	find(id: string): Logger<DataType> | undefined {
 		if (this.id === id) {
 			return this;
@@ -94,22 +94,22 @@ export class Logger<DataType extends Record<string, Serializable>> {
 	}
 
 	/**
-   * @description Update logger data by id
-   * @param id Id of logger
-   * @param logData Data of logger
-   * @example
-   * const logger = new Logger<{type: string, message: string}>(true);
-   * logger.add({
-   *  type: 'info',
-   *  message: 'Hello world',
-   * });
-   * logger.update(logger.children[0].id, {
-   *  type: 'error',
-   *  message: 'Hello world',
-   * });
-   * logger.children[0].data.type; // 'error'
-   * logger.children[0].data.message; // 'Hello world'
-   */
+	 * @description Update logger data by id
+	 * @param id Id of logger
+	 * @param logData Data of logger
+	 * @example
+	 * const logger = new Logger<{type: string, message: string}>(true);
+	 * logger.add({
+	 *  type: 'info',
+	 *  message: 'Hello world',
+	 * });
+	 * logger.update(logger.children[0].id, {
+	 *  type: 'error',
+	 *  message: 'Hello world',
+	 * });
+	 * logger.children[0].data.type; // 'error'
+	 * logger.children[0].data.message; // 'Hello world'
+	 */
 	update(id: string, logData: Partial<DataType>) {
 		const logger = this.rootLogger?.find(id);
 		if (logger) {
@@ -148,14 +148,14 @@ export class Logger<DataType extends Record<string, Serializable>> {
 }
 
 export type GetLoggerJSONType<DataType extends Record<string, Serializable>> =
-  ReturnType<Logger<DataType>['toJSON']>;
+	ReturnType<Logger<DataType>['toJSON']>;
 
 export type Serializable =
-  | string
-  | number
-  | boolean
-  | undefined
-  | Serializable[]
-  | {
-  	[key: string]: Serializable;
-  };
+	| string
+	| number
+	| boolean
+	| undefined
+	| Serializable[]
+	| {
+		[key: string]: Serializable;
+	  };

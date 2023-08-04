@@ -18,10 +18,10 @@ export async function waitTabLoaded({
 		) => {
 			if (
 				details.tabId !== tabId
-        || details.frameId !== 0
-        // @ts-expect-error Error is not in the type
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        || excludeErrors.includes(details.error)
+				|| details.frameId !== 0
+				// @ts-expect-error Error is not in the type
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+				|| excludeErrors.includes(details.error)
 			) {
 				return;
 			}
