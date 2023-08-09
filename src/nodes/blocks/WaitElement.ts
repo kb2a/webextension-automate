@@ -1,3 +1,4 @@
+import { assert, colorBorder, sleep } from '../../utils'
 import {getElementsByBody, getElementsByXPath} from '../../utils/queryDOM';
 import {retryWithTimeout} from '../../utils/retryWithTimeout';
 import {Block, type BlockInput} from '../Block';
@@ -19,7 +20,7 @@ export class WaitElement extends Block {
 		const elements = await retryWithTimeout(
 			this.waitElement.bind(this),
 			[input],
-			input.timeout ?? 3000,
+			input.timeout ?? 10000,
 		);
 		if (!elements) {
 			throw new Error('Block WaitElement: Element not found}');
@@ -32,38 +33,39 @@ export class WaitElement extends Block {
 		type,
 		input,
 	}: WaitElementInput): Promise<WaitElementOutput | undefined> {
+		let elements: Element[];
+		
 		if (type === 'css-selector') {
-			const elements = document.querySelectorAll(input);
+			elements = Array.from(document.querySelectorAll(input));
 			if (elements.length === 0) {
 				throw new Error(
 					`Block WaitElement: Element css-selector "${input}" not found}`,
 				);
 			}
-
-			return Array.from(elements);
 		}
 
 		if (type === 'search') {
-			const elements = getElementsByBody(input.body);
+			elements = getElementsByBody(input.body);
 			if (elements.length === 0) {
 				throw new Error(
 					`Block WaitElement: Element contains "${input.body}" not found}`,
 				);
 			}
-
-			return elements;
 		}
 
 		if (type === 'xpath') {
-			const elements = getElementsByXPath(input);
+			elements = getElementsByXPath(input);
 			if (elements.length === 0) {
 				throw new Error(
 					`Block WaitElement: Element with xpath "${input}" not found}`,
 				);
 			}
-
-			return elements;
 		}
+
+		const revert = colorBorder(elements!, '1px solid green');
+		await sleep(2000);
+		revert();
+		return elements!;
 	}
 }
 
