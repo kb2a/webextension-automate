@@ -33,8 +33,8 @@ export abstract class Node {
 
 	async executeConcurrentNodes<T extends typeof Node>(
 		nodes: Array<{
-			Node: T;
-			input: Parameters<InstanceType<T>['execute']>[0];
+			Node: typeof Node;
+			input: any; // TODO: add type base on T and lying in an array, need help
 		}>,
 	) {
 		return Promise.all(
@@ -42,14 +42,14 @@ export abstract class Node {
 		);
 	}
 
-	async executeNodes<T extends typeof Node>(
+	async executeNodes<T extends typeof Node = typeof Node>(
 		nodes: Array<{
 			Node: T;
 			input: Parameters<InstanceType<T>['execute']>[0];
 		}>,
 		delay = 0,
 	) {
-		const results = [];
+		const results: Awaited<ReturnType<InstanceType<T>["execute"]>>[] = [];
 		for (const node of nodes) {
 			await sleep(delay);
 			const result = await this.executeNode(node.Node, node.input);
